@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+  <script>
+    game();
+
+    function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    function getComputerChoice() {
+      // return a random string between rock, paper and scissors.
+      const choices = ['rock','paper','scissors'];
+      return choices[getRandomInt(0,2)];
+    }
+
+    function playRound(playerSelection, computerSelection) {
+      // return who won between the two - player or computer. 
+      // Parameters are case insenstitive.
+      playerSelection = playerSelection.toLowerCase();
+      
+      switch (playerSelection) {
+        case 'rock':
+          if (computerSelection === 'rock')
+          return null;
+          if (computerSelection === 'paper')
+          return false;
+          if (computerSelection === 'scissors')
+          return true;
+        case 'paper': 
+          if (computerSelection === 'paper')
+          return null
+          if (computerSelection === 'scissors')
+          return false
+          if (computerSelection === 'rock')
+          return true;
+        case 'scissors':
+          if (computerSelection === 'rock')
+          return false;
+          if (computerSelection === 'paper')
+          return true;
+          if (computerSelection === 'scissors')
+          return null;
+        default: 
+          throw new Error('User did not enter rock/paper/scissors');
+      }
+        
+    }
+
+    function game() {
+      // play 5 rounds with the user, display appropriate message when win, lose or tied
+      for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt('Enter either rock, paper or scissors')
+
+        const computerChoise = getComputerChoice();
+
+        let userWon = playRound(playerSelection, computerChoise);
+
+        console.log('Computer picked ' + computerChoise)
+        if (userWon === true) {
+          console.log('You win');
+        }
+        else if (userWon === false) {
+          console.log('You lost')
+        }
+        else {
+          console.log('You tied!')
+        }
+
+      }
+
+    }
+
+  </script>
+</body>
+</html>
