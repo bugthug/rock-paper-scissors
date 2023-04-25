@@ -4,11 +4,33 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
   <title>Rock, Paper, Scissors</title>
 </head>
 <body>
+  <h1>Rock, Paper & Scissors</h1>
+  <h2>Choose your pick</h2>
+  <div class="choices">
+    <button>Rock</button>
+    <button>Paper</button>
+    <button>Scissors</button>
+  </div>
+
+  <div class="results">
+    <p>You picked: <span class="player-pick">Rock</span></p>
+    <p>Computer picked: <span class="computer-pick">Scissors</span></p>
+
+    <p><span id="winner">Nobody</span> won!</p>
+  </div>
+
+  <div class="score">
+    <h2>Score</h2>
+    <p>Computer: <span class="computer-score">0</span></p>
+    <p>Player: <span class="player-score">0</span></p>
+  </div>
   <script>
-    game();
+
+    let playerScore = 0, computerScore = 0;
 
     function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -55,29 +77,64 @@
         
     }
 
-    function game() {
-      // play 5 rounds with the user, display appropriate message when win, lose or tied
-      for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt('Enter either rock, paper or scissors')
-
-        const computerChoise = getComputerChoice();
-
-        let userWon = playRound(playerSelection, computerChoise);
-
-        console.log('Computer picked ' + computerChoise)
-        if (userWon === true) {
-          console.log('You win');
-        }
-        else if (userWon === false) {
-          console.log('You lost')
-        }
-        else {
-          console.log('You tied!')
-        }
-
+    function domWhoWon(isPlayerWinner) {
+      const whoWonSpan = document.getElementById("winner");
+      
+      switch (isPlayerWinner) {
+        case true:
+          whoWonSpan.textContent = "Player";
+          playerScore++;
+          document.querySelector('.player-score').textContent = playerScore; 
+          break;
+        case false:
+          whoWonSpan.textContent = "Computer";
+          computerScore++;
+          document.querySelector('.computer-score').textContent = computerScore;
+          break;
+        default:
+          whoWonSpan.textContent = "Nobody"
+          break;
       }
-
     }
+
+    function gameEnd() {
+      if (playerScore >= 5) {
+        document.body.innerHTML = "";
+        const winner = document.createElement('h1');
+        winner.textContent = 'Humanity stands its ground';
+        document.body.appendChild(winner);
+        return;
+      }
+      if (computerScore >= 5) {
+        document.body.innerHTML = "";
+        const winner = document.createElement('h1');
+        winner.textContent = 'Robots decsend upon the earth'
+        document.body.appendChild(winner);
+        return;
+      }
+      return;
+    }
+
+    function changePickElements(computerPick,playerPick) {
+      document.querySelector('.player-pick').textContent = playerPick;
+      doucment.querySelector('.computer-pick').textContent = computerPick;
+    }
+
+    function game(e) {
+      // play 5 rounds with the user, display appropriate message when win, lose or tied
+      
+      const playerSelection = this.textContent;
+
+      const computerChoice = getComputerChoice();
+
+      let userWon = playRound(playerSelection, computerChoice);
+
+      domWhoWon(userWon);
+      gameEnd();
+    }
+
+    const listButton = document.querySelectorAll('.choices > button');
+    listButton.forEach(button => button.addEventListener('click',game))
 
   </script>
 </body>

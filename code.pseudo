@@ -1,0 +1,36 @@
+let playerScore, computerScore = 0;
+
+function domWhoWon(bool isPlayerWinner) {
+    
+
+    if (player is winner) {
+        then change span with id winner to player
+        add score to playerScore +1
+    } else if (not player is winner) {
+        then change span with id winner to computer
+        add score to computerScore +1
+    }
+    gameEnd();
+}
+
+function changePickElements(computerPick, playerPick) {
+    // Maybe later
+    // computerPick = FirstLetterUpperCase(computerPick);
+    // playerPick = FirstLetterUpperCase(playerPick);
+    change span w/ class player-pick value = playerpick
+    change span w/ class computer-pick value = computerPick
+
+}
+
+function gameEnd() {
+    if element w/ player-pick is >= 5 then player won
+    if element w/ computer-pick is >=5 then computer won
+    else return;
+}
+
+function game(playerSelection, computerSelection) {
+    determinte who won, pass to domWhoWon 
+}
+
+event listen to click from a button, get button content.
+game(buttonContent, getComputerChoice()) 
