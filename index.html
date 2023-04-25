@@ -117,15 +117,15 @@
 
     function changePickElements(computerPick,playerPick) {
       document.querySelector('.player-pick').textContent = playerPick;
-      doucment.querySelector('.computer-pick').textContent = computerPick;
+      document.querySelector('.computer-pick').textContent = computerPick;
     }
 
     function game(e) {
-      // play 5 rounds with the user, display appropriate message when win, lose or tied
-      
+
       const playerSelection = this.textContent;
 
       const computerChoice = getComputerChoice();
+      changePickElements(computerChoice,playerSelection);
 
       let userWon = playRound(playerSelection, computerChoice);
 
